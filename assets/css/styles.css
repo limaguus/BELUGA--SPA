@@ -1,47 +1,43 @@
+/* Reset básico para remover estilos padrão do navegador*/
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
+/* estilo base do corpo da página */
 body {
   background: #0f172a;
   color: white;
   font-family: Arial, sans-serif;
 }
-
+/* container principal do sistema */
 .app {
   display: grid;
   grid-template-columns: 250px 1fr;
   min-height: 100vh;
 }
-
+/* menu lateral*/
 .sidebar {
   background: #1e293b;
   padding: 20px;
 }
-
+/* organização dos links dentro da sidebar */
 .sidebar nav {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 20px;
 }
-
+/* estilo padrão dos links */
 .sidebar a {
   color: #cbd5e1;
   text-decoration: none;
 }
-
+/* efeito ao passar o mouse */
 .sidebar a:hover {
   color: white;
 }
-
+/* área principal do conteúdo */
 .content {
   padding: 40px;
-}
-
-.sidebar a.active {
-  color: white;
-  font-weight: bold;
 }

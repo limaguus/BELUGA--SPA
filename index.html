@@ -1,30 +1,41 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!-- diz para o navegador que o arquivo é HTML5 -->
+<!DOCTYPE html> 
+<html lang="pt-BR"> <!-- infroma a lingua dos leitores da tela -->
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"> <!-- usado para caracteres "ação" não virar "AãÃzão" -->
   <title>Beluga</title>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css"> <!-- conecta o css ao HTML -->
 </head>
 <script type="module" src="assets/js/app.js"></script>
-<body>
+<body> <!-- tudo que aparece na tela -->
 
- <div class="app">
+ <div class="app"> <!-- div agrupa, permite aplicar o css nele -->
 
-  <aside class="sidebar">
+  <aside class="sidebar"> <!-- conteúdo  lateral menu -->
     <h2>Beluga</h2>
-    <nav>
-     <a href="#/hero" data-route="hero">Hero</a>
+    <nav> <!-- navegação tudo que é menu de naveg. deve estar dentro de nav -->
+     <a href="#/hero" data-route="hero">Hero</a><!-- pra onde o link aponta (#/hero muda o hash da URL) -->
   <a href="#/login" data-route="login">Login</a>
+  <a href="#/cadastro" data-route="cadastro">Cadastro</a>
   <a href="#/dashboard" data-route="dashboard">Dashboard</a>
+  <a href="#/matriz" data-route="matriz">Matriz</a>
+  <a href="#/quiz" data-route="quiz">Quiz</a>
+  <a href="#/plano" data-route="plano">Plano</a>
+  <a href="#/perfil" data-route="perfil">Perfil</a>
+  <a href="#/feed" data-route="feed">Feed</a>
+  <a href="#/forum" data-route="forum">Fórum</a>
+  <a href="#/notificacoes" data-route="notificacoes">Notificações</a>
+  <a href="#/aulas" data-route="aulas">Aulas</a>
+  <a href="#/conquistas" data-route="conquistas">Conquistas</a>
 
     </nav>
-  </aside>
+  </aside> <!-- fecha menu -->
 
-  <main class="content" id="app">
-    <h1>Área principal</h1>
-  </main>
+  <main class="content" id="app"> <!-- conteudo principal da página -->
+    <h1>Área principal</h1> <!-- texto temporário para teste, logo o JS substitui isso-->
+  </main> <!-- fecha area principal -->
 
-</div>
+</div><!-- fecha o container do layout -->
 
 </body>
-</html>
+</html> <!-- fecha tudo -->
