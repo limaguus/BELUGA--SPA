@@ -11,16 +11,50 @@ function heroScreen() {
 // Tela de login
 function loginScreen() {
   return `
-    <h1>Login</h1>
-    <p>Tela de login.</p>
+    <div class="card" style="max-width: 400px;">
+    <h1>Login<h1>
+    <input class="input" placeholder="Email" />
+    <br /><br />
+    <input class="input" placeholder="Senha" type="password" />
+    <br /><br />
+    <button class="button">Entrar</button>
+    </div>
   `;
 }
 // Tela principal do sistema
 function dashboardScreen() {
   return `
-    <h1>Dashboard</h1>
-    <p>Visão geral do aluno.</p>
-  `;
+  <div class="grid grid-3">
+  <div class="card">
+    <h2>Matéria 1</h2>
+    <p>Progresso: 60%</p>
+    </div>
+
+    <div class="card">
+    <h2>Matéria 2</h2>
+    <p>Progresso: 45%</p>
+    </div>
+
+    <div class="card">
+    <h2>Matéria 3</h2>
+    <p>Progresso: 80%</p>
+    </div>
+  </div>
+
+  <br />
+  <div class="card">
+  <button class="button" onclick="openModal()">Abrir Modal</button>
+  </div>
+
+  <div class="modal-overlay" id="modal">
+  <div class="modal">
+  <h2>Modal Base</h2>
+  <p>Estrutura reutilizável.</p>
+  <br />
+  <button class="button" onclick="closeModal()">Fechar</button>
+  </div>
+  </div>
+`;
 }
   function cadastroScreen() {
   return `
@@ -83,3 +117,16 @@ registerRoute("aulas", aulasScreen);
 registerRoute("conquistas", conquistasScreen);
 // Inicia o sistema de navegação SPA
 startRouter();
+
+/* para o modal funcionar */
+window.openModal = function () {
+  const modal = document.getElementById("modal");
+  if (!modal) return;
+  modal.classList.add("active");
+};
+
+window.closeModal = function () {
+  const modal = document.getElementById("modal");
+  if (!modal) return;
+  modal.classList.remove("active");
+};
