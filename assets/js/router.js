@@ -1,38 +1,77 @@
-// router é um arquivo que faz a navegação de SPA (simple page application)
-import { logout } from "./state/auth.js";
-import { isLoggedIn } from "./state/auth.js";
-const routes = {}; // guarda o mapa da navegação
+/* =========================================================
+   BELUGA - router.js
+   Responsável por:
+   - Ler a rota via hash (#/dashboard)
+   - Proteger rotas públicas/privadas (auth fake)
+   - Renderizar a tela no #app
+   - Chamar init() depois do HTML no DOM
+   - Ajustar layout quando estiver no modo público (landing/login/cadastro)
+   ========================================================= */
 
-// Registra uma nova rota no sistema
-export function registerRoute(name, render) {
-  routes[name] = render;
+import { isLoggedIn, logout } from "./state/auth.js";
+
+const routes = {};
+
+/* =========================================================
+   registerRoute(name, handler)
+   handler pode ser:
+   - função que retorna HTML (modo simples)
+   - objeto { render, init } (modo profissional)
+   ========================================================= */
+export function registerRoute(name, handler) {
+  routes[name] = handler;
 }
 
-// Inicia o roteador da aplicação
 export function startRouter() {
-  // Função responsável por renderizar a rota atual
   function renderRoute() {
-    // Pega o nome da rota da URL (#/login → login)
+    /* -----------------------------
+       1) Descobrir rota atual
+       ----------------------------- */
     const routeName = window.location.hash.replace("#/", "") || "landing";
-    // Pega o elemento onde o conteúdo será renderizado
+
+    /* Outlet onde a tela é desenhada */
     const outlet = document.getElementById("app");
-
-    // Se não encontrar o elemento, interrompe
     if (!outlet) return;
-    // Se a rota existir no objeto routes
+
+    /* -----------------------------
+       2) Regras de autenticação
+       ----------------------------- */
     const publicRoutes = ["landing", "login", "cadastro"];
-
     const logged = isLoggedIn();
+    const isPublic = publicRoutes.includes(routeName);
 
+    /* -----------------------------
+       3) Ajustes de layout (público vs app)
+       Isso resolve o "micro scroll" e garante hero full-screen.
+       ----------------------------- */
+
+    // Marca no body se estamos no modo público.
+    // O CSS usa isso para remover padding do layout do app.
+    document.body.classList.toggle("public-mode", isPublic);
+
+    // Topbar só aparece quando está logado (app)
     const topbar = document.getElementById("topbar");
-    if (topbar) {
-      topbar.classList.toggle("hidden", !logged);
-    }
+    if (topbar) topbar.classList.toggle("hidden", !logged);
 
-    if (!logged && !publicRoutes.includes(routeName)) {
+    /* -----------------------------
+       4) Bloqueio de rotas
+       ----------------------------- */
+
+    // Não logado tentando acessar rota privada → manda para landing
+    if (!logged && !isPublic) {
       window.location.hash = "#/landing";
       return;
     }
+
+    // Logado tentando acessar rota pública → manda para dashboard
+    if (logged && isPublic) {
+      window.location.hash = "#/dashboard";
+      return;
+    }
+
+    /* -----------------------------
+       5) Botão de logout (topbar)
+       ----------------------------- */
     const logoutBtn = document.getElementById("btn-logout");
     if (logoutBtn) {
       logoutBtn.onclick = () => {
@@ -41,23 +80,25 @@ export function startRouter() {
       };
     }
 
-    if (logged && publicRoutes.includes(routeName)) {
-      window.location.hash = "#/dashboard";
-      return;
-    }
-    if (routes[routeName]) {
-      const route = routes[routeName];
+    /* -----------------------------
+       6) Renderização da rota
+       ----------------------------- */
+    const route = routes[routeName];
 
-      // Suporta rota como função (modo antigo) ou como objeto { render, init }
+    if (route) {
+      // Se for função: route()
+      // Se for objeto: route.render()
       const html = typeof route === "function" ? route() : route.render();
 
+      // Coloca o HTML na tela (agora o DOM existe)
       outlet.innerHTML = html;
 
+      // Marca link ativo no menu do app (topnav)
       document.querySelectorAll("[data-route]").forEach((link) => {
         link.classList.toggle("active", link.dataset.route === routeName);
       });
 
-      // Se existir init, chama depois de renderizar
+      // Se tiver init(), roda depois do HTML existir
       if (typeof route === "object" && typeof route.init === "function") {
         route.init();
       }
@@ -65,11 +106,15 @@ export function startRouter() {
       return;
     }
 
-    // Caso a rota não exista
+    /* -----------------------------
+       7) Rota inexistente
+       ----------------------------- */
     outlet.innerHTML = "<h1>Página não encontrada</h1>";
   }
-  // Escuta mudanças na URL
+
+  // Re-renderiza quando o hash muda
   window.addEventListener("hashchange", renderRoute);
-  // Renderiza a primeira vez ao abrir o site
+
+  // Render inicial
   renderRoute();
 }

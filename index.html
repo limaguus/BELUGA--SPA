@@ -9,15 +9,14 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
     <!-- conecta o css ao HTML -->
   </head>
-  <body>
-    <!-- tudo que aparece na tela -->
-    <div class="layout">
-    <header class="topbar" id="topbar">
-    <div class="container topbar-inner">
-    <div class="brand">BELUGA</div>
-    <nav class="topnav">
 
-          <nav class="topnav">
+  <body>
+    <div class="layout">
+      <header class="topbar" id="topbar">
+        <div class="container topbar-inner">
+          <div class="brand">BELUGA</div>
+
+          <nav class="topnav" aria-label="Navegação principal">
             <a href="#/dashboard" data-route="dashboard">Dashboard</a>
             <a href="#/matriz" data-route="matriz">Matriz</a>
             <a href="#/quiz" data-route="quiz">Quiz</a>
@@ -29,7 +28,10 @@
             <a href="#/conquistas" data-route="conquistas">Conquistas</a>
             <a href="#/perfil" data-route="perfil">Perfil</a>
           </nav>
-          <button class="button button-ghost" id="btn-logout">Sair</button>
+
+          <button class="button button-ghost" id="btn-logout" type="button">
+            Sair
+          </button>
         </div>
       </header>
 
@@ -37,6 +39,7 @@
         <div class="container" id="app"></div>
       </main>
     </div>
+
     <script type="module" src="assets/js/app.js"></script>
   </body>
 </html>

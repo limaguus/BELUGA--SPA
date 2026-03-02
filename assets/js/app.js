@@ -1,14 +1,33 @@
+/* =========================================================
+   BELUGA - app.js
+   Responsável por:
+   - Registrar todas as rotas
+   - Separar rotas públicas e privadas
+   - Inicializar o router
+   ========================================================= */
+
+/* =========================
+   1) CORE DO SISTEMA
+   ========================= */
 import { registerRoute, startRouter } from "./router.js";
 
-// Public (antes de entrar)
+/* =========================
+   2) TELAS PÚBLICAS
+   (antes do login)
+   ========================= */
 import { landingScreen, landingInit } from "./screens/landing.js";
 import { loginScreen, loginInit } from "./screens/login.js";
 import { cadastroScreen, cadastroInit } from "./screens/cadastro.js";
 
-// App (depois de entrar)
+/* =========================
+   3) TELAS DO APP (logado)
+   ========================= */
 import { dashboardScreen, dashboardInit } from "./screens/dashboard.js";
 
-// Outras telas (por enquanto simples)
+/* =========================
+   4) OUTRAS TELAS DO APP
+   (por enquanto apenas render simples)
+   ========================= */
 import { matrizScreen } from "./screens/matriz.js";
 import { quizScreen } from "./screens/quiz.js";
 import { planoEstudoScreen } from "./screens/planoEstudo.js";
@@ -19,14 +38,35 @@ import { notificacoesScreen } from "./screens/notificacoes.js";
 import { aulasScreen } from "./screens/aulas.js";
 import { conquistasScreen } from "./screens/conquistas.js";
 
-// Rotas públicas
-registerRoute("landing", { render: landingScreen, init: landingInit });
-registerRoute("login", { render: loginScreen, init: loginInit });
-registerRoute("cadastro", { render: cadastroScreen, init: cadastroInit });
+/* =========================================================
+   REGISTRO DAS ROTAS
+   ========================================================= */
 
-// Rotas privadas (dentro do app)
-registerRoute("dashboard", { render: dashboardScreen, init: dashboardInit });
+/* ---------- Rotas Públicas ---------- */
+registerRoute("landing", {
+  render: landingScreen,
+  init: landingInit,
+});
 
+registerRoute("login", {
+  render: loginScreen,
+  init: loginInit,
+});
+
+registerRoute("cadastro", {
+  render: cadastroScreen,
+  init: cadastroInit,
+});
+
+/* ---------- Rotas Privadas (App) ---------- */
+registerRoute("dashboard", {
+  render: dashboardScreen,
+  init: dashboardInit,
+});
+
+/* ---------- Rotas Simples do App ---------- */
+/* Essas ainda não precisam de init porque
+   não possuem lógica interativa específica */
 registerRoute("matriz", matrizScreen);
 registerRoute("quiz", quizScreen);
 registerRoute("plano", planoEstudoScreen);
@@ -37,4 +77,7 @@ registerRoute("notificacoes", notificacoesScreen);
 registerRoute("aulas", aulasScreen);
 registerRoute("conquistas", conquistasScreen);
 
+/* =========================================================
+   INICIALIZAÇÃO DO SISTEMA
+   ========================================================= */
 startRouter();
