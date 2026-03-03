@@ -28,6 +28,7 @@ export function startRouter() {
        1) Descobrir rota atual
        ----------------------------- */
     const routeName = window.location.hash.replace("#/", "") || "landing";
+    document.body.classList.toggle("public-mode", routeName === "landing");
 
     /* Outlet onde a tela é desenhada */
     const outlet = document.getElementById("app");

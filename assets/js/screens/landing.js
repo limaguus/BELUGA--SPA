@@ -5,7 +5,10 @@ export function landingScreen() {
     <div class="public">
       <!-- Header público da landing -->
       <header class="public-header">
-        <div class="brand">BELUGA</div>
+        <div class="brand">
+        <img src="./assets/images/logof.png" class="brand-logo" />
+        <span>BELUGA</span>
+        </div>
 
         <nav class="public-nav" aria-label="Navegação da landing">
           <a href="#/landing#funcionalidades">Funcionalidades</a>
@@ -25,10 +28,10 @@ export function landingScreen() {
             </h1>
 
             <p>Planejamento de forma fácil e eficaz.</p>
-
+          
             <div class="hero-actions">
               <button class="button" id="cta-login" type="button">
-                Login/Cadastro
+                COMECE AGORA
               </button>
             </div>
           </div>
@@ -55,12 +58,10 @@ export function landingScreen() {
               <h3>Planejamento com IA</h3>
               <p>Cronograma feito com base na sua rotina.</p>
             </div>
-
-            <div class="card feature-card">
-              <h3>Alertas inteligentes</h3>
-              <p>Receba lembretes de provas e entregas.</p>
+             <div class="card feature-card">
+              <h3>Comunidade Engajada</h3>
+              <p>+2.000 alunos compartilhando conhecimento.</p>
             </div>
-
             <div class="card feature-card">
               <h3>Avaliação e conhecimento</h3>
               <p>Quizzes que mostram onde você precisa focar.</p>
