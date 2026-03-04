@@ -39,6 +39,10 @@ export function startRouter() {
        ----------------------------- */
     const publicRoutes = ["landing", "login", "cadastro"];
     const logged = isLoggedIn();
+    document.body.classList.toggle(
+      "public-mode",
+      publicRoutes.includes(routeName),
+    );
     const isPublic = publicRoutes.includes(routeName);
 
     /* -----------------------------
